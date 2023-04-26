@@ -6,6 +6,6 @@ class IndexController extends Controller
 {
     public function indexAction()
     {
- 
+ //redirect to view
     }
 }

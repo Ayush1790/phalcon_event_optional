@@ -33,6 +33,7 @@ class Listener extends Injectable
     {
         $this->session->set("user_email", $this->request->getPost('email'));
         $this->session->set("user_pswd", $this->request->getPost('pswd'));
+        $this->cookies->set("isLogin", true, time() + 86400);
     }
 
     public function setLoginValue()
