@@ -4,6 +4,7 @@ use Phalcon\Mvc\Controller;
 use handler\Aware\Aware;
 use handler\Listener\Listener;
 use Phalcon\Events\Manager as EventsManager;
+
 // sign up controller class
 class SignupController extends Controller
 {
@@ -13,7 +14,6 @@ class SignupController extends Controller
     }
     public function registerAction()
     {
-
         $eventsManager = new EventsManager();
         $componant = new Aware();
         $componant->setEventsManager($eventsManager);
@@ -22,9 +22,6 @@ class SignupController extends Controller
             new Listener()
         );
         $componant->process();
-
-
-        $escaper = new Myescaper();
         $user = new Users();
         $data = [
             'name' => $this->request->getPost('name'),
@@ -37,17 +34,6 @@ class SignupController extends Controller
         );
         $success = $user->save();
         if ($success) {
-            // setting the session
-            $this->session->set("user_email", $user->email);
-            $this->session->set("user_pswd", $user->pswd);
-            if ($this->request->getPost('rememberMe') == "on") {
-                // setting cookies
-                $this->cookies->set("user_email", $this->session->get('user_email'), time() + 15 * 86400);
-                $this->cookies->set("user_pswd", $this->session->get('user_pswd'), time() + 15 * 86400);
-            } else {
-                $this->cookies->set("user_email", $this->session->get('user_email'), time() - 15 * 86400);
-                $this->cookies->set("user_pswd", $this->session->get('user_pswd'), time() - 15 * 86400);
-            }
             $this->view->message = true;
         } else {
             $this->logger

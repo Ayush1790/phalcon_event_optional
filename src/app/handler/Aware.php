@@ -24,5 +24,7 @@ class Aware extends Injectable implements EventsAwareInterface
     public function process()
     {
         $this->eventsManager->fire('application:dbEvent', $this);
+        $this->eventsManager->fire('session:storeDataSession', $this);
+        $this->eventsManager->fire('test:setLoginValue', $this);
     }
 }

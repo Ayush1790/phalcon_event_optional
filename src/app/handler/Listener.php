@@ -29,4 +29,18 @@ class Listener extends Injectable
         }
     }
 
+    public function storeDataSession()
+    {
+        $this->session->set("user_email", $this->request->getPost('email'));
+        $this->session->set("user_pswd", $this->request->getPost('pswd'));
+    }
+
+    public function setLoginValue()
+    {
+
+        if (isset($this->session->user_email)) {
+            $_POST['email'] = $this->session->get('user_email');
+            $_POST['pswd'] = $this->session->get('user_pswd');
+        }
+    }
 }
